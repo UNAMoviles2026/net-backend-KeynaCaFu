@@ -44,4 +44,12 @@ public class ReservationRepository : IReservationRepository
     await _context.SaveChangesAsync();
     return true;
   }
+
+  public async Task<List<Reservation>> GetByDateAsync(DateOnly date)
+  {
+    return await _context.Reservations
+        .AsNoTracking()
+        .Where(r => r.Date == date)
+        .ToListAsync();
+  }
 }
